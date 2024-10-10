@@ -14,6 +14,7 @@ import {useTravelLogContext} from '@/contexts/TravelLog';
 import {useMutation, useQueryClient, useQuery} from '@tanstack/react-query';
 import moyeobang from '@/services/moyeobang';
 import {useNavigate} from '@tanstack/react-router';
+import imageCompression from 'browser-image-compression';
 import {fi} from 'date-fns/locale';
 import querykeys from '@/util/querykeys';
 import axios from 'axios';
@@ -49,9 +50,7 @@ export default function PlusSelf() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [dateTime, setDateTime] = useState<string>('');
   const toggleDropdown = () => setIsDropdownOpen(prev => !prev);
-  // const [scheduleName, setScheduleName] = useState<string | undefined>(
-  //   searchLocation
-  // );
+  const [compressedFile, setCompressedFile] = useState();
   const [scheduleLocation, setScheduleLocation] =
     useState<ScheduleLocation | null>(null);
   const [getSchedule, setGetSchedule] = useState<DaySchedule | null>(null);
@@ -64,11 +63,30 @@ export default function PlusSelf() {
     document.getElementById('imageInput')?.click();
   };
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = event.target.files?.[0];
     if (file) {
-      const imageUrl = URL.createObjectURL(file); // 이미지 URL 생성
-      setSelectedImage(imageUrl); // 이미지 상태 업데이트
+      // const imageUrl = URL.createObjectURL(file); // 이미지 URL 생성
+      // setSelectedImage(imageUrl); // 이미지 상태 업데이트
+      try {
+        // 압축 옵션 설정
+        const options = {
+          maxSizeMB: 1, // 최대 파일 크기 (MB 단위)
+          maxWidthOrHeight: 1920, // 최대 너비 또는 높이 (px 단위)
+          useWebWorker: true, // Web Worker 사용
+        };
+
+        // 이미지 압축
+        const compressedFile = await imageCompression(file, options);
+        const compressedImageUrl = URL.createObjectURL(compressedFile);
+
+        setSelectedImage(compressedImageUrl); // 압축된 이미지 상태 업데이트
+        setCompressedFile(compressedFile); // 압축된 파일 저장
+      } catch (error) {
+        console.error('Error compressing image:', error);
+      }
     }
   };
   const handlePlaceSelection = (place: string) => {
@@ -119,7 +137,7 @@ export default function PlusSelf() {
 
         if (budgetData) {
           console.log('Budget Data:', budgetData);
-          setTimeout(async() => {
+          setTimeout(async () => {
             await queryClient.invalidateQueries({
               queryKey: ['travelSchedules', travelId],
               refetchType: 'all',
@@ -226,10 +244,14 @@ export default function PlusSelf() {
       memo: memo || '',
     };
 
-    scheduleData.append(
-      'data',
-      new Blob([JSON.stringify(jsonData)], {type: 'application/json'})
-    );
+    if (compressedFile) {
+      scheduleData.append('image', compressedFile);
+    } else {
+      scheduleData.append(
+        'data',
+        new Blob([JSON.stringify(jsonData)], {type: 'application/json'})
+      );
+    }
 
     // 파일이 있을 때만 append
     if (selectedImage) {

@@ -297,9 +297,10 @@ const PlusSelfGoogleMap = forwardRef(
             zoom={12}
             onLoad={setMap}
             options={{
-              zoomControl: true,
-              scrollwheel: true,
-              disableDefaultUI: false,
+              mapTypeControl: false, // 지도/위성 전환 숨기기
+              zoomControl: false, // 확대/축소 버튼 숨기기
+              fullscreenControl: false, // 전체 화면 버튼 숨기기
+              streetViewControl: false, // 스트리트뷰 버튼 숨기기
             }}
           >
             {markers.map((marker, index) => (
