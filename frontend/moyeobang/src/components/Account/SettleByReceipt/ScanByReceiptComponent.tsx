@@ -179,7 +179,7 @@ export default function ScanByReceiptComponent({transactionId, money, paymentNam
             // console.log(response.data.images[0].inferResult) // 영수증 이미지 인식 결과 'SUCCESS | FAILURE | ERROR"
             if (response.data.images[0].inferResult==='SUCCESS') {
                 
-                console.log('subResults : ', response.data.images[0].receipt.result.subResults[0].items)
+                // console.log('subResults : ', response.data.images[0].receipt.result.subResults[0].items)
     
                 // 영수증 아이쳄 리스트 추출
                 const itemData : OcrItem[] = response.data.images[0].receipt.result.subResults[0].items.map((item:OcrApiItem) => {
@@ -198,7 +198,7 @@ export default function ScanByReceiptComponent({transactionId, money, paymentNam
             }
 
         } catch (error) {
-            console.log(error)
+            // console.log(error)
             setError('영수증 인식 오류 발생')
         }
     }
@@ -215,7 +215,7 @@ export default function ScanByReceiptComponent({transactionId, money, paymentNam
     }
 
     useEffect(() => {
-        console.log('isLoading:', isLoading);
+        // console.log('isLoading:', isLoading);
     }, [isLoading]);
 
     return (

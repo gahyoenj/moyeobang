@@ -88,7 +88,7 @@ function LoginSuccess() {
 
   useEffect(() => {
     if (myInfoResponse) {
-      console.log('myInfo', myInfoResponse);
+      // console.log('myInfo', myInfoResponse);
       const myInfo = myInfoResponse?.data.data;
       setMemberId(myInfo.id);
       setMemberName(myInfo.name);
