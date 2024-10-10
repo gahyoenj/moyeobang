@@ -18,12 +18,12 @@ function Protected() {
   const navigate = useNavigate();
 
   // [todo] 주석 풀기
-  useEffect(() => {
-    const isLogin = isAuthenticated();
-    if (!isLogin) {
-      navigate({to: '/entrance', replace: true});
-    }
-  }, [navigate]);
+  // useEffect(() => {
+  //   const isLogin = isAuthenticated();
+  //   if (!isLogin) {
+  //     navigate({to: '/entrance', replace: true});
+  //   }
+  // }, [navigate]);
 
   return <Outlet />;
 }
