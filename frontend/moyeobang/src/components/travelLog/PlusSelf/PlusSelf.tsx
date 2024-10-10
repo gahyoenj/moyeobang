@@ -14,7 +14,6 @@ import {useTravelLogContext} from '@/contexts/TravelLog';
 import {useMutation, useQueryClient, useQuery} from '@tanstack/react-query';
 import moyeobang from '@/services/moyeobang';
 import {useNavigate} from '@tanstack/react-router';
-import imageCompression from 'browser-image-compression';
 import {fi} from 'date-fns/locale';
 import querykeys from '@/util/querykeys';
 import axios from 'axios';

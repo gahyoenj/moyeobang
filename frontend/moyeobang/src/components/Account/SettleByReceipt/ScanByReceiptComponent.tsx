@@ -197,7 +197,7 @@ export default function ScanByReceiptComponent({transactionId, money, paymentNam
                 setError('영수증 인식 오류 발생')
             }
 
-        } catch () {
+        } catch (error) {
             // console.log(error)
             setError('영수증 인식 오류 발생')
         }
