@@ -8,12 +8,12 @@ importScripts(
 );
 
 self.addEventListener('install', _ => {
-  console.log('fcm sw install...');
+  // console.log('fcm sw install...');
   self.skipWaiting();
 });
 
 self.addEventListener('activate', _ => {
-  console.log('fcm service worker가 실행되었습니다.');
+  // console.log('fcm service worker가 실행되었습니다.');
 });
 
 const firebaseConfig = {
@@ -30,7 +30,7 @@ firebase.initializeApp(firebaseConfig);
 const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage(messaging, payload => {
-  console.log('[백그라운드 알림]', payload.data); // 푸시알림 콘솔 확인용
+  // console.log('[백그라운드 알림]', payload.data); // 푸시알림 콘솔 확인용
   const notificationTitle = payload.data.title;
   const notificationOptions = {
     body: payload.data.content,
@@ -57,16 +57,16 @@ self.addEventListener('notificationclick', event => {
 // firebase-messaging-sw.js
 
 self.addEventListener('install', event => {
-  console.log('Service Worker 설치 완료.');
+  // console.log('Service Worker 설치 완료.');
   self.skipWaiting();
 });
 
 self.addEventListener('activate', event => {
-  console.log('Service Worker 활성화 완료.');
+  // console.log('Service Worker 활성화 완료.');
 });
 
 self.addEventListener('fetch', event => {
-  console.log('Service Worker에서 fetch 요청을 처리하고 있습니다.');
+  // console.log('Service Worker에서 fetch 요청을 처리하고 있습니다.');
   event.respondWith(fetch(event.request));
 });
 
@@ -112,7 +112,7 @@ self.addEventListener('push', function (event) {
 
   try {
     payload = event.data.json(); // 푸시 데이터 JSON으로 파싱
-    console.log('JSON으로 파싱된 데이터:', payload);
+    // console.log('JSON으로 파싱된 데이터:', payload);
   } catch (error) {
     console.error('푸시 데이터 파싱 오류:', error);
     return; // 파싱 실패 시 종료
@@ -128,8 +128,8 @@ self.addEventListener('push', function (event) {
     },
   };
 
-  console.log('알림 제목:', title);
-  console.log('알림 옵션:', options);
+  // console.log('알림 제목:', title);
+  // console.log('알림 옵션:', options);
 
   // title과 body가 있는 경우에만 알림 표시
   if (title && options.body) {

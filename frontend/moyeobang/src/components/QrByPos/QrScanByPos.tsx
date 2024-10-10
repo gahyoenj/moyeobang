@@ -81,7 +81,7 @@ export default function QrScanByPos({onClose, paymentData, onResult } : QrScanBy
         try {
             const data = JSON.parse(result.data);
             setScannedResult(data);
-            console.log('파싱된 QR 데이터', data)
+            // console.log('파싱된 QR 데이터', data)
 
             // 결제 데이터 합치기
             const payData : PaymentProps= {...data, ...paymentData}
@@ -92,13 +92,13 @@ export default function QrScanByPos({onClose, paymentData, onResult } : QrScanBy
             }
 
         } catch (error) {
-            console.log(error)
+            // console.log(error)
         }
         // 받은 계좌, uuid정보 ! data넣어서 백에 보내기!!
     }
 
     function onScanFail(error: string | Error) {
-        console.log(error)
+        // console.log(error)
     }
 
     useEffect(()=>{

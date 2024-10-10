@@ -183,12 +183,12 @@ export default function TravelCard({
 
   const clickSummaryButton = (e: React.MouseEvent) => {
     e.stopPropagation();
-    console.log('Modal open with:', {
-      travelName,
-      startDate,
-      endDate,
-      travelPlaceList,
-    });
+    // console.log('Modal open with:', {
+    //   travelName,
+    //   startDate,
+    //   endDate,
+    //   travelPlaceList,
+    // });
     setTravelSummaryModal(true);
   };
 
@@ -198,8 +198,8 @@ export default function TravelCard({
 
   const handleExitModalOpen = (e: React.MouseEvent) => {
     e.stopPropagation(); // 이벤트 전파를 막음
-    console.log('나가기클릭');
-    console.log(travelId);
+    // console.log('나가기클릭');
+    // console.log(travelId);
     setExitModal(true);
     setSettingButtonClick(prev => !prev);
   };
@@ -214,7 +214,7 @@ export default function TravelCard({
 
   const goSettingPage = (e: React.MouseEvent) => {
     e.stopPropagation(); // 이벤트 전파를 막음
-    console.log('세팅페이지');
+    // console.log('세팅페이지');
     // navigate({to: '/profile'});
     // setTravelData(title, startDate, endDate, place);
     setEditModal(true);

@@ -182,7 +182,7 @@ export default function TravelMainMap() {
         }
         map.fitBounds(bounds); // 모든 마커를 포함하는 경계로 설정
       } else if (placeCoords.length > 0) {
-        console.log('[*]', placeCoords);
+        // console.log('[*]', placeCoords);
 
         const bounds = new window.google.maps.LatLngBounds();
         placeCoords.forEach(coord => {
@@ -250,7 +250,7 @@ export default function TravelMainMap() {
           setMap(mapInstance);
         }} // map 인스턴스 저장
         onUnmount={() => {
-          console.log('Map unmounted');
+          // console.log('Map unmounted');
           setMap(null);
         }} // 페이지가 이동되거나 언마운트 시 map 상태 초기화
         onClick={() => {

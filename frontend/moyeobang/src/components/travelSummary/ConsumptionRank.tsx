@@ -134,7 +134,7 @@ export default function ConsumptionRank({
   ); // 클릭된 참가자 상태
   const [modalIsOpen, setModalIsOpen] = useState(false); // 모달 상태
   const containerRef = useRef<HTMLDivElement>(null); // 컨테이너 참조 생성
-  console.log('멤버', consumptionByMember);
+  // console.log('멤버', consumptionByMember);
   // 상위 3개의 고유 금액을 추출
   const uniqueBalances = Array.from(
     new Set(consumptionByMember.map(member => member.balance))

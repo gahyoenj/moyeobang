@@ -57,7 +57,7 @@ export default function QrPay({onMessage, onError, isHome, accountNumber, isActi
         });
 
         eventSource.onopen = () => {
-            console.log("sse연결 open")
+            // console.log("sse연결 open")
         }
 
         // 각 이벤트 이름에 맞는 메시지를 처리
@@ -65,22 +65,22 @@ export default function QrPay({onMessage, onError, isHome, accountNumber, isActi
 
             const messageEvent = event as MessageEvent<string>;
             const connectMessage : ConnectMessage = messageEvent.data;
-            console.log('connect 응답 결과:', connectMessage);
+            // console.log('connect 응답 결과:', connectMessage);
         });
 
         eventSource.addEventListener('payment-success', (event) => {
-            console.log('payment-success' , event)
+            // console.log('payment-success' , event)
 
             const messageEvent = event as MessageEvent<string>;
             const parsedData : ResultMessage = JSON.parse(messageEvent.data);
-            console.log('payment-succes 응답 결과:', parsedData);
+            // console.log('payment-succes 응답 결과:', parsedData);
             onMessage(Number(parsedData.transactionId))
             // setResultMessage(parsedData);                                                                                           
             // setOpenCompleteModal(true);
         });
 
         eventSource.addEventListener('payment-failed', (event) => {
-            console.log('payment-failed' , event)
+            // console.log('payment-failed' , event)
 
             const messageEvent = event as MessageEvent<string>;
             const errorMessage : ErrorMessage = messageEvent.data;
@@ -94,7 +94,7 @@ export default function QrPay({onMessage, onError, isHome, accountNumber, isActi
             // console.log('sse요청 error발생', event)
 
             if (event.target.readyState === EventSource.CLOSED) {
-                console.log('see연결 재연결 시도')
+                // console.log('see연결 재연결 시도')
 
                 setTimeout(() => {
                     fetchSEE(); // 현재 연결 종료 후 재시도
@@ -119,7 +119,7 @@ export default function QrPay({onMessage, onError, isHome, accountNumber, isActi
         return () => {
             if (eventSource) {
                 eventSource.close();
-                console.log('sse 연결 종료')
+                // console.log('sse 연결 종료')
             }
         };
     }, [isActive]);

@@ -255,7 +255,7 @@ export default function SettleByReceiptComponenet({
         data: updatedReceipt,
       });
     }
-    console.log('정산 클릭 정산될 데이터:', updatedReceipt);
+    // console.log('정산 클릭 정산될 데이터:', updatedReceipt);
   }
 
   function handleRestart() {

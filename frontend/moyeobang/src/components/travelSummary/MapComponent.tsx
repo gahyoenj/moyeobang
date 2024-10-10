@@ -210,7 +210,7 @@ export default function MapComponent({
 
   // 마커를 생성하는 함수
   const createMarkers = (map: google.maps.Map) => {
-    console.log(locationList);
+    // console.log(locationList);
     locationList.forEach(location => {
       new google.maps.Marker({
         map,

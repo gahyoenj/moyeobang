@@ -5,7 +5,7 @@ import React, {useEffect} from 'react';
 // 로그인 된 사용자 아닐시 entrance로 이동
 // 로그인 여부를 확인하는 함수
 const isAuthenticated = () => {
-  console.log('accessToken', getCookie('accessToken'));
+  // console.log('accessToken', getCookie('accessToken'));
 
   return Boolean(getCookie('accessToken'));
 };

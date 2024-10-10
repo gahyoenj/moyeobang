@@ -48,7 +48,7 @@ export default function TravelLogMain() {
     queryKey: ['travelSchedules', travelId],
     queryFn: async () => {
       const schedules = await moyeobang.getTravelSchedules(travelId);
-      console.log('[*] 여행 일정 조회 성공', schedules);
+      // console.log('[*] 여행 일정 조회 성공', schedules);
       return schedules;
     },
     staleTime: 0, // 캐시를 새로고침할 때마다 무효화
@@ -63,7 +63,7 @@ export default function TravelLogMain() {
 
   // 상태가 업데이트된 후의 travelSchedules를 확인
   useEffect(() => {
-    console.log('[*] 바뀌나 travelSchedules', travelSchedules);
+    // console.log('[*] 바뀌나 travelSchedules', travelSchedules);
   }, [travelSchedules]);
 
   return (
