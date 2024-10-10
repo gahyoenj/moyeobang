@@ -50,7 +50,7 @@ export default function PlusSelf() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [dateTime, setDateTime] = useState<string>('');
   const toggleDropdown = () => setIsDropdownOpen(prev => !prev);
-  const [compressedFile, setCompressedFile] = useState();
+  const [compressedFile, setCompressedFile] = useState<File | null>();
   const [scheduleLocation, setScheduleLocation] =
     useState<ScheduleLocation | null>(null);
   const [getSchedule, setGetSchedule] = useState<DaySchedule | null>(null);
