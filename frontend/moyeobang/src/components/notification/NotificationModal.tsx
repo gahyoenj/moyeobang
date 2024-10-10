@@ -85,7 +85,7 @@ export default function NotificationModal({onClose}: {onClose: () => void}) {
 
   // 로컬 스토리지에서 알림을 불러오는 함수
   useEffect(() => {
-    const savedNotifications = localStorage.getItem('notifications');
+    const savedNotifications = sessionStorage.getItem('notifications');
     if (savedNotifications) {
       setNotifications(JSON.parse(savedNotifications)); // 로컬 스토리지에서 알림을 불러옴
     }

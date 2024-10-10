@@ -31,7 +31,8 @@ export default function Settle() {
   const {transactionId} : {transactionId:TransactionId} = Route.useParams(); 
   const {history} = useRouter()
   const {method, isUpdate} :{method:SplitMethod, isUpdate:boolean} = Route.useSearch();
-  console.log('isUpdate', isUpdate)
+  // method==='receipt' 이고 'true'이면
+  // console.log('isUpdate', isUpdate)
   const {accountId} = useTravelDetailStore();
   
   const [activeComponent, setActiveComponent] = useState<'left' | 'right'>(
@@ -63,7 +64,7 @@ export default function Settle() {
   function isSettledParticipantByCustom(
     details: SettledItemByReceipt[] | SettledParticipantByCustom[]
   ): details is SettledParticipantByCustom[] {
-    console.log(details)
+    // console.log(details)
     return Array.isArray(details) && details.length > 0 && (details as SettledParticipantByCustom[])[0].participant!== undefined;
   }
 
@@ -98,6 +99,7 @@ export default function Settle() {
               details={isSettledParticipantByCustom(transactionDetailData.details) ? transactionDetailData.details : []} 
               acceptedNumber={transactionDetailData.acceptedNumber}
               isUpdate={isUpdate} // true 수정 | false 새로 생성
+              fromUpdateReceipt={method==='receipt'&&isUpdate}
             />
           }
         </div>

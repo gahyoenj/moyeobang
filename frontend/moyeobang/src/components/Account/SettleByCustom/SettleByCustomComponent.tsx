@@ -23,19 +23,18 @@ export interface CustomSettle {
 interface SettleByCustomComponenetProps {
     transactionId : TransactionId;
     paymentName: PaymentName;
-    // adress: Adress;
     totalMoney: Money;
     createdAt: CreatedAt;
     details: SettledParticipantByCustom[];
     acceptedNumber:AcceptedNumber;
-    // splitMethod: SplitMethod; // 'custom'
     isUpdate:boolean;
+    fromUpdateReceipt:boolean;
 }
 
 // 결제 후 데이터
 // money(totalMoney), transactionId, createdAt, paymentName, 와 모임통장 회원 정보 필요
 
-export default function SettleByCustomComponent({transactionId, totalMoney, paymentName, createdAt, details, acceptedNumber, isUpdate} : SettleByCustomComponenetProps) {
+export default function SettleByCustomComponent({transactionId, totalMoney, paymentName, createdAt, details, acceptedNumber, isUpdate, fromUpdateReceipt} : SettleByCustomComponenetProps) {
     const [ settleData , setSettleData ] = useState<CustomSettle[]>([]);
     const [ remainMoney, setRemainMoney ] = useState<number>(0);
     const [ isAll, setIsAll ] = useState<boolean>(true);
@@ -76,7 +75,7 @@ export default function SettleByCustomComponent({transactionId, totalMoney, paym
 
     useEffect(()=> {
         // 새로 들어온거 details=[] 여기에 default 1/n해주기
-        if (!isUpdate) {
+        if (!isUpdate || fromUpdateReceipt) {
 
             const initialSettle = participantsInfo.map(member => {
                 return {

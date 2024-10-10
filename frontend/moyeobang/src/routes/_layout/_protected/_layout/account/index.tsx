@@ -60,7 +60,8 @@ const transactionListStyle = css`
   flex-direction: column;
   align-items: center;
 
-  max-height: 390px; 
+  height:385px;
+  max-height: 385px; 
   overflow-y: auto; 
   width: 100%;
 

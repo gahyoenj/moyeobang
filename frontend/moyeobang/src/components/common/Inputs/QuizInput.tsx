@@ -37,7 +37,7 @@ const labelStyle = css`
 const quizInputStyle = css`
   flex-grow: 1; /* Allow the input to take remaining space */
   height: 50px;
-  max-width: 326px;
+  max-width: 280px;
   border: 1px solid #1ec0ff;
   border-radius: 50px;
   padding: 12px 16px;

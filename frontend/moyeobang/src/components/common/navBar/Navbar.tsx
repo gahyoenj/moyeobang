@@ -12,12 +12,13 @@ const footer = css`
   position: fixed;
   max-width: 390px;
   bottom: 0;
+  left:0;
   width: 100%;
   z-index: 10;
 `;
 
 const nav = css`
-  width: 390px;
+  width: 100%;
   height: 76.522px;
   position: relative;
   background-image: url(${navBar});

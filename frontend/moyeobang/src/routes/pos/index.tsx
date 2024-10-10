@@ -84,6 +84,17 @@ const shop: PosPay = {
     tag:'SHOPPING'
   }
 
+const bar: PosPay = {
+    placeId : 'bar-10',
+    placeName: '갓포횻',
+    placeAddress: '제주 제주시 원노형10길 38 1층',
+    amount: 54500,
+    latitude:33.4827591,
+    longitude: 126.4863695,
+    targetAccountNumber: '0018418012115489',
+    tag:'RESTAURANT'
+  }
+
 export const Route = createFileRoute('/pos/')({
   component: Pos,
 })
@@ -188,6 +199,7 @@ export default function Pos() {
           <Btn buttonStyle={{size:'big', style:'red'}} onClick={() => handleOpen(starbucks)}>스타벅스 제주중문점</Btn>
           <Btn buttonStyle={{size:'big', style:'red'}} onClick={() => handleOpen(kurosiro)}>자매국수</Btn>
           <Btn buttonStyle={{size:'big', style:'red'}} onClick={() => handleOpen(abebeBakery)}>아베베베이커리</Btn>
+          <Btn buttonStyle={{size:'big', style:'red'}} onClick={() => handleOpen(bar)}>갓포효</Btn>
           <Btn buttonStyle={{size:'big', style:'red'}} onClick={() => handleOpen(art)}>도토리캐리커쳐 제주점</Btn>
           <Btn buttonStyle={{size:'big', style:'red'}} onClick={() => handleOpen(circus)}>제주 아트 서커스</Btn>
           <Btn buttonStyle={{size:'big', style:'red'}} onClick={() => handleOpen(garden)}>카멜리아 힐</Btn>
