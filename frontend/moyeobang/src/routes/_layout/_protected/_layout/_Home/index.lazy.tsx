@@ -201,7 +201,7 @@ function Index() {
 
   const router = useRouter();
   const clickTravelCard = (travel: Travel) => {
-    console.log('Clicked travel:', travel.travelId); // 어떤 여행이 클릭되었는지 확인
+    // console.log('Clicked travel:', travel.travelId); // 어떤 여행이 클릭되었는지 확인
     setTravelData({
       travelId: travel.travelId,
       travelName: travel.travelName,

@@ -124,8 +124,8 @@ export default function PlusSelf() {
       });
 
       const responseScheduleId = response.data.data.scheduleId;
-      console.log('[*shedule]', response.data);
-      console.log('[*sheduleId]', responseScheduleId);
+      // console.log('[*shedule]', response.data);
+      // console.log('[*sheduleId]', responseScheduleId);
       try {
         const budgetData = await queryClient.fetchQuery({
           queryKey: ['budget', responseScheduleId],
@@ -136,7 +136,7 @@ export default function PlusSelf() {
         });
 
         if (budgetData) {
-          console.log('Budget Data:', budgetData);
+          // console.log('Budget Data:', budgetData);
           setTimeout(async () => {
             await queryClient.invalidateQueries({
               queryKey: ['travelSchedules', travelId],
@@ -168,7 +168,7 @@ export default function PlusSelf() {
     }) =>
       moyeobang.postChangeTravelSchedule(travelId, scheduleId, scheduleData),
     onSuccess: async () => {
-      console.log('[*] 수정 성공');
+      // console.log('[*] 수정 성공');
       setTimeout(async () => {
         await queryClient.invalidateQueries({
           queryKey: ['travelSchedules', travelId],
@@ -188,7 +188,7 @@ export default function PlusSelf() {
     mutationFn: ({scheduleId}: {scheduleId: Id}) =>
       moyeobang.deleteTravelSchedule(scheduleId),
     onSuccess: async () => {
-      console.log('[*] 삭제 성공');
+      // console.log('[*] 삭제 성공');
       await queryClient.invalidateQueries({
         queryKey: ['travelSchedules', travelId],
         refetchType: 'all',
@@ -262,10 +262,10 @@ export default function PlusSelf() {
     }
 
     if (scheduleEdit) {
-      console.log(
-        '수정 모드 scheduleData:',
-        Object.fromEntries(scheduleData.entries())
-      );
+      // console.log(
+      //   '수정 모드 scheduleData:',
+      //   Object.fromEntries(scheduleData.entries())
+      // );
 
       // 수정 모드
       postChangeTravelSchedule({

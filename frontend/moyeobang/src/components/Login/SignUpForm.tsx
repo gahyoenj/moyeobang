@@ -181,7 +181,7 @@ export default function SignUpForm({isEditMode}: {isEditMode?: boolean}) {
       navigate({to: `/profile/${memberName}`});
     } else {
       // 처음 회원가입할 때
-      console.log('submit');
+      // console.log('submit');
       navigate({to: '/accountConnect'});
     }
   };

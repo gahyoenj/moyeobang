@@ -67,8 +67,8 @@ export default function DaySchedules({
   const [changeSequence, setChangeSequence] = useState<ChangeSequence[]>([]);
 
   const daySchedules = travelSchedules[dayNum - 1]?.daySchedules || [];
-  console.log('[*] daySchedules', daySchedules);
-  console.log('[*] 이거 travelSchedules', travelSchedules);
+  // console.log('[*] daySchedules', daySchedules);
+  // console.log('[*] 이거 travelSchedules', travelSchedules);
 
   const updateSequence = (
     dayNum: number,
@@ -100,7 +100,7 @@ export default function DaySchedules({
   };
 
   useEffect(() => {
-    console.log('[*] changeSequence', changeSequence);
+    // console.log('[*] changeSequence', changeSequence);
   }, [changeSequence]);
 
   // onDragEnd 함수 추가
@@ -135,8 +135,8 @@ export default function DaySchedules({
       updateSequence(dayNum, schedule.scheduleId ?? 0, index + 1);
     });
 
-    console.log('드래그 시작 위치:', source.index);
-    console.log('드래그 종료 위치:', destination.index);
+    // console.log('드래그 시작 위치:', source.index);
+    // console.log('드래그 종료 위치:', destination.index);
   };
   return (
     <div style={{width: '390px', height: '100%', position: 'relative'}}>
@@ -154,7 +154,7 @@ export default function DaySchedules({
               {provided => (
                 <div {...provided.droppableProps} ref={provided.innerRef}>
                   {daySchedules.map((schedule, index: number) => {
-                    console.log('[*] schedule', schedule);
+                    // console.log('[*] schedule', schedule);
 
                     return (
                       <Draggable

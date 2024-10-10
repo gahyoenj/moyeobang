@@ -160,9 +160,9 @@ instance.interceptors.request.use(
   async config => {
     const accessToken = getCookie('accessToken');
     const refreshToken = getCookie('refresh_token');
-    console.log('[*] 요청 인터셉터 설정', refreshToken);
-    console.log('[*] accessToken', accessToken);
-    console.log('[*] refreshToken', getCookie('refresh_token'));
+    // console.log('[*] 요청 인터셉터 설정', refreshToken);
+    // console.log('[*] accessToken', accessToken);
+    // console.log('[*] refreshToken', getCookie('refresh_token'));
 
     if (accessToken) {
       config.headers['Authorization'] = `Bearer ${accessToken}`;
@@ -170,7 +170,7 @@ instance.interceptors.request.use(
     return config;
   },
   error => {
-    console.log('[*] 요청 인터셉터 설정 에러', error);
+    // console.log('[*] 요청 인터셉터 설정 에러', error);
     return Promise.reject(error);
   }
 );
@@ -180,38 +180,38 @@ instance.interceptors.response.use(
   response => response,
   async error => {
     const originalRequest = error.config;
-    console.log('[*] 응답 인터셉터 설정');
+    // console.log('[*] 응답 인터셉터 설정');
     const refreshToken = getCookie('refresh_token');
-    console.log('refreshToken', refreshToken);
-    console.log('[*] 응답 인터셉터 error', error);
+    // console.log('refreshToken', refreshToken);
+    // console.log('[*] 응답 인터셉터 error', error);
 
     if (
       error.response &&
       error.response.status === 401 &&
       !originalRequest._retry
     ) {
-      console.log('[*] 재시도 중', error.response);
+      // console.log('[*] 재시도 중', error.response);
 
       originalRequest._retry = true;
 
       if (!refreshToken) {
         console.error('No refresh token available');
-        console.log('[*] 리프레시 토큰 없음, 로그인 페이지로 이동');
+        // console.log('[*] 리프레시 토큰 없음, 로그인 페이지로 이동');
         window.location.href = '/entrance';
         return Promise.reject(error);
       }
 
       try {
         const refreshToken = getCookie('refresh_token');
-        console.log('[*] refreshToken 통해 accessToken 재발급', refreshToken);
+        // console.log('[*] refreshToken 통해 accessToken 재발급', refreshToken);
         const response = await instance.post(`/reissue/token`, {
           headers: {Authorization: `Bearer ${refreshToken}`},
         });
 
         if (response) {
-          console.log('response', response);
+          // console.log('response', response);
           const newAccessToken = response.data.accessToken;
-          console.log('newAccessToken', newAccessToken);
+          // console.log('newAccessToken', newAccessToken);
           setCookie('accessToken', newAccessToken, 900);
 
           originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;

@@ -93,7 +93,7 @@ export default function QrScan({onMessage, onError, restart, accountNumber}:QrSc
         mutationFn: ({data} : {data: PaymentProps}) => moyeobang.postPayByOnline(data),
         onSuccess: async (response) => {
             onMessage(Number(response.data.data.transactionId))
-            console.log('온라인 결제 성공!')
+            // console.log('온라인 결제 성공!')
         },
         onError: (error) => {
             if (error instanceof AxiosError) {

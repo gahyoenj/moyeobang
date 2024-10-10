@@ -112,7 +112,7 @@ export default function profile() {
     profileImage,
   } = useMyInfo();
   const handleLogout = () => {
-    console.log('로그아웃');
+    // console.log('로그아웃');
     // 로그아웃 시 모든 상태 초기화
     // 쿠키 삭제
     logout();

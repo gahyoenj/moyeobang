@@ -26,7 +26,7 @@ export default function MarkerDetail({
   } = useTravelLogContext();
 
   useEffect(() => {
-    console.log('[*]야 임마 selectedMarker', selectedMarker);
+    // console.log('[*]야 임마 selectedMarker', selectedMarker);
   });
   const [isExpanded, setIsExpanded] = useState(false);
   const MarkerDetailHeight = isExpanded ? '80vh' : '20vh';
