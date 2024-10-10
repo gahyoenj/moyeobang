@@ -53,7 +53,7 @@ export default function Settle() {
 
   const transactionDetailData = data.data.data;
 
-    // 언마운트 => default 정산하기(직접 정산 API)
+  // 닫기 눌러 버렸을때 => default 정산하기(직접 정산 API)
   const {mutate: settleByDefault } = useMutation({
       mutationFn: ({transactionId, travelId, data} : {transactionId: TransactionId, travelId:Id, data: PostTransactionDetailByCustom}) => moyeobang.postSettleByCustom(transactionId, travelId, data),
       onSuccess: async () => {
@@ -93,6 +93,8 @@ export default function Settle() {
   }
   
   function handleXClick() {
+    const sendData = createDefaultSettleData();
+    settleByDefault({transactionId:transactionId, travelId:travelId, data:sendData});
     history.back()
   }
 
@@ -103,17 +105,6 @@ export default function Settle() {
     // console.log(details)
     return Array.isArray(details) && details.length > 0 && (details as SettledParticipantByCustom[])[0].participant!== undefined;
   }
-
-  useEffect(() => {
-
-    return () => {
-      // 언마운트 될 떄 정산이 되지 않았다면
-      if (transactionDetailData.details.length===0) {
-        const sendData = createDefaultSettleData();
-        settleByDefault({transactionId:transactionId, travelId:travelId, data:sendData});
-      }
-    }
-  }, [])
 
   return (
       <>
