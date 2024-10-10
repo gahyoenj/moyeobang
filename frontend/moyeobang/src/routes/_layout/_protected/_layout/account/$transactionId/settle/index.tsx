@@ -6,9 +6,11 @@ import TwoBtn from '@/components/common/btn/TwoBtn';
 import { useState } from 'react';
 import SettleByCustomComponent from '@/components/Account/SettleByCustom/SettleByCustomComponent';
 import ScanByReceiptComponent from '@/components/Account/SettleByReceipt/ScanByReceiptComponent';
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import moyeobang from '@/services/moyeobang';
 import useTravelDetailStore from '@/store/useTravelDetailStore';
+import { useEffect } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 
 export const Route = createFileRoute('/_layout/_protected/_layout/account/$transactionId/settle/')({
   component: Settle
@@ -34,6 +36,9 @@ export default function Settle() {
   // method==='receipt' 이고 'true'이면
   // console.log('isUpdate', isUpdate)
   const {accountId} = useTravelDetailStore();
+  const { travelId}= useTravelDetailStore();
+  const {participantsInfo} = useTravelDetailStore();
+  const queryClient = useQueryClient();
   
   const [activeComponent, setActiveComponent] = useState<'left' | 'right'>(
     method === 'custom' ? 'right' : 'left'
@@ -47,6 +52,37 @@ export default function Settle() {
   });
 
   const transactionDetailData = data.data.data;
+
+    // 언마운트 => default 정산하기(직접 정산 API)
+  const {mutate: settleByDefault } = useMutation({
+      mutationFn: ({transactionId, travelId, data} : {transactionId: TransactionId, travelId:Id, data: PostTransactionDetailByCustom}) => moyeobang.postSettleByCustom(transactionId, travelId, data),
+      onSuccess: async () => {
+      await queryClient.invalidateQueries({
+          queryKey: ['transactionList', accountId], // 해당 계좌의 전체내역 업데이트
+          refetchType: 'all',
+      });
+      }
+
+      });
+
+  function createDefaultSettleData() {
+      const info = participantsInfo.map((member) => (
+          {
+              // money = 전체금액/맴버수 내림값
+              memberId:member.memberId, 
+              money: Math.floor(transactionDetailData.money/participantsInfo.length)
+          }
+      ))
+
+      return {
+          paymentName : transactionDetailData.paymentName,
+          money : transactionDetailData.money,
+          info : info,
+          splitMethod:'custom',
+          acceptedNumber:transactionDetailData.acceptedNumber,
+      };
+  };
+
 
   function handleLeft() {
     setActiveComponent('left')
@@ -67,6 +103,17 @@ export default function Settle() {
     // console.log(details)
     return Array.isArray(details) && details.length > 0 && (details as SettledParticipantByCustom[])[0].participant!== undefined;
   }
+
+  useEffect(() => {
+
+    return () => {
+      // 언마운트 될 떄 정산이 되지 않았다면
+      if (transactionDetailData.details.length===0) {
+        const sendData = createDefaultSettleData();
+        settleByDefault({transactionId:transactionId, travelId:travelId, data:sendData});
+      }
+    }
+  }, [])
 
   return (
       <>
