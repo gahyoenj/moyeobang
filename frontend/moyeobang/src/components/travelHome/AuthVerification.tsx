@@ -166,7 +166,7 @@ export default function AuthVerification({
     },
     onSuccess: async response => {
       const {travelId} = response.data; // 응답에서 travelId 추출
-      console.log(travelId, '여행 생성 완료');
+      // console.log(travelId, '여행 생성 완료');
       // 여행 목록을 다시 가져오도록 GET 요청 수행
       setTimeout(async () => {
         await queryClient.invalidateQueries({
@@ -212,7 +212,7 @@ export default function AuthVerification({
       //[todo] 여행 생성 함수 호출
       postTravel({formData, memberId});
 
-      console.log('여행 생성 호출');
+      // console.log('여행 생성 호출');
 
       // onclose();
       // await router.navigate({to: '/'});

@@ -380,7 +380,7 @@ export default {
    * 내 정보 조회
    */
   getMyInfo: async () => {
-    console.log('getMyInfo 호출');
+    // console.log('getMyInfo 호출');
     axios.get<MoyeobangResponse<ResponseGetProfile>>('/user/me/profile');
   },
 

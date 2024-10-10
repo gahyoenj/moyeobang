@@ -133,7 +133,7 @@ export default function QuizComponent({
       memberId: number;
     }) => moyeobang.postQuiz(travelId, {answer}, memberId),
     onSuccess: response => {
-      console.log('response', response);
+      // console.log('response', response);
       const {data} = response.data;
       setConfirmModal(true);
       if (data === true) {

@@ -36,37 +36,37 @@ export default async function requestPermissionAndSaveToken(
   setIsFcmToken: (tokenExists: boolean) => void,
   memberId: number
 ) {
-  console.log('requestPermission');
+  // console.log('requestPermission');
   try {
     // // 서비스 워커가 준비될 때까지 기다리기
     // const registration = await navigator.serviceWorker.ready;
     // console.log('Service Worker 준비 완료:', registration);
 
     const permission = await Notification.requestPermission();
-    console.log('permission', permission);
+    // console.log('permission', permission);
     if (permission === 'granted') {
-      console.log('granted');
+      // console.log('granted');
 
       const currentToken = await getToken(messaging, {
         vapidKey:
           'BFg_yRn7AVZukoSqRrEcdS-OA-5O8xtZFRad4q7Y7ZteODNuCTrgTbAnp588LN94b6UzY-TZ7jSvnwdSCRDQxNU',
       });
-      console.log('currentToken', currentToken);
+      // console.log('currentToken', currentToken);
       if (currentToken) {
-        console.log('FCM Token:', currentToken);
+        // console.log('FCM Token:', currentToken);
         // 서버에 토큰 저장
         saveTokenInMemberEntity(currentToken, setIsFcmToken, memberId);
       } else {
-        console.error('No registration token available.');
+        // console.error('No registration token available.');
       }
     } else {
-      console.error('Notification permission not granted.');
+      // console.error('Notification permission not granted.');
     }
   } catch (error) {
-    console.error(
-      'Error during notification permission or token saving:',
-      error
-    );
+    // console.error(
+    //   'Error during notification permission or token saving:',
+    //   error
+    // );
   }
 }
 
@@ -93,16 +93,16 @@ function saveTokenInMemberEntity(
       setIsFcmToken(true);
       return response.json();
     })
-    .then(data => console.log('Token saved:', data))
+    // .then(data => console.log('Token saved:', data))
     .catch(err => console.error('Error saving token:', err));
 }
 
 // 포그라운드에서 메시지 수신 및 알림 표시
 export function setupForegroundNotificationHandler() {
   onMessage(messaging, payload => {
-    console.log('포그라운드 메시지 수신:', payload);
+    // console.log('포그라운드 메시지 수신:', payload);
 
-    console.log('메세지', payload.data);
+    // console.log('메세지', payload.data);
 
     // 로컬 스토리지에서 기존 알림 불러오기
     const storedNotifications = JSON.parse(

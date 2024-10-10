@@ -76,32 +76,32 @@ export default function QrPayByOnline({qrData, onClickOutside} : QrPayByOnlinePr
 
         // EventSource.readyState()
         eventSource.onopen = () => {
-            console.log('aiport sse open')
+            // console.log('aiport sse open')
         }
 
         eventSource.addEventListener('connect', (event) => {
 
             const messageEvent = event as MessageEvent<string>;
             const connectMessage : ConnectMessage = messageEvent.data;
-            console.log('connect:', connectMessage);
+            // console.log('connect:', connectMessage);
         });
 
         eventSource.addEventListener('payment-success', (event) => {
 
             const messageEvent = event as MessageEvent<string>;
             const parsedData = JSON.parse(messageEvent.data);
-            console.log('payment-succes:', parsedData);
+            // console.log('payment-succes:', parsedData);
         });
 
         eventSource.onerror = (event) => {
             
         eventSource.close();
             if (event) {
-                console.log('sse요청 error발생', event)
+                // console.log('sse요청 error발생', event)
             }
 
             if (event.target.readyState === EventSource.CLOSED) {
-                console.log('see연결 종료')
+                // console.log('see연결 종료')
             }
         };
 
@@ -116,7 +116,7 @@ export default function QrPayByOnline({qrData, onClickOutside} : QrPayByOnlinePr
         return () => {
             if (eventSource) {
                 eventSource.close(); // 언마운트시 종료
-                console.log('sse 연결 종료')
+                // console.log('sse 연결 종료')
             }
         };
     }, []);

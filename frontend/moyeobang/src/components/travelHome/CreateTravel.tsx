@@ -124,7 +124,7 @@ export default function CreateTravel({
       new Blob([JSON.stringify(requestData)], {type: 'application/json'})
     );
 
-    console.log('requestData', requestData);
+    // console.log('requestData', requestData);
     if (selectedImage) {
       const file = fileInputRef.current?.files?.[0];
       if (file) {
@@ -227,7 +227,7 @@ export default function CreateTravel({
         queryKey: ['travelList'],
         refetchType: 'all',
       });
-      console.log('수정 성공');
+      // console.log('수정 성공');
     },
   });
 
@@ -263,7 +263,7 @@ export default function CreateTravel({
   };
 
   useEffect(() => {
-    console.log('초기데이터', initialData);
+    // console.log('초기데이터', initialData);
     if (isCalendarOpen) {
       document.addEventListener('mousedown', handleClickOutside);
     } else {

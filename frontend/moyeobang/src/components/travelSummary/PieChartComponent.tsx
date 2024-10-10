@@ -22,7 +22,7 @@ interface PieChartProps {
 }
 
 export function PieChartComponent({consumptionByCategory}: PieChartProps) {
-  console.log(consumptionByCategory);
+  // console.log(consumptionByCategory);
 
   const data = consumptionByCategory.map(category => ({
     name: category.categoryName,
@@ -32,7 +32,7 @@ export function PieChartComponent({consumptionByCategory}: PieChartProps) {
         : category.proportion, // 문자열일 경우에만 parseFloat 적용
   }));
 
-  console.log(data);
+  // console.log(data);
 
   const renderCustomizedLabel = ({
     cx,

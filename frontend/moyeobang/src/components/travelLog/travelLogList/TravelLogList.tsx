@@ -127,7 +127,7 @@ export default function TravelLogList() {
       setCurrentIndex((prevIndex: number) => {
         const newIndex = Math.min(prevIndex + 1, travelDays); // travelSchedules.length -> travelDays
         setScheduleDayNum(newIndex + 1); // 새로운 스케줄 번호 설정 (1부터 시작)
-        console.log('[*] 오른쪽', newIndex);
+        // console.log('[*] 오른쪽', newIndex);
 
         return newIndex;
       });
@@ -136,7 +136,7 @@ export default function TravelLogList() {
       setCurrentIndex((prevIndex: number) => {
         const newIndex = Math.max(prevIndex - 1, 0);
         setScheduleDayNum(newIndex + 1); // 새로운 스케줄 번호 설정 (1부터 시작)
-        console.log('[*] 왼쪽', newIndex);
+        // console.log('[*] 왼쪽', newIndex);
 
         return newIndex;
       });
@@ -151,7 +151,7 @@ export default function TravelLogList() {
     }, 0);
 
     setTotalBudget(newTotalBudget);
-    console.log(totalBudget);
+    // console.log(totalBudget);
   }, [travelSchedules]);
 
   const travelDays = travelDates.length;
@@ -168,7 +168,7 @@ export default function TravelLogList() {
       <div css={travelLogLayout} {...handlers}>
         {travelDays > 0 &&
           travelDates.map((date, index) => {
-            console.log('[*] date', date);
+            // console.log('[*] date', date);
 
             return (
               <div key={`travel-log-list-${index}`}>
