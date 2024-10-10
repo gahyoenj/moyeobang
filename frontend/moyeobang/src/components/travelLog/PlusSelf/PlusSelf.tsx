@@ -11,13 +11,10 @@ import addTravelPhoto from '@/assets/icons/addTravelPhoto.png';
 import searchImg from '@/assets/icons/Search.png';
 import useTravelDetailStore from '@/store/useTravelDetailStore';
 import {useTravelLogContext} from '@/contexts/TravelLog';
-import {useMutation, useQueryClient, useQuery} from '@tanstack/react-query';
+import {useMutation, useQueryClient} from '@tanstack/react-query';
 import moyeobang from '@/services/moyeobang';
 import {useNavigate} from '@tanstack/react-router';
-import imageCompression from 'browser-image-compression';
 import {fi} from 'date-fns/locale';
-import querykeys from '@/util/querykeys';
-import axios from 'axios';
 
 export default function PlusSelf() {
   const {travelPlaceList, travelId} = useTravelDetailStore();
@@ -50,12 +47,13 @@ export default function PlusSelf() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [dateTime, setDateTime] = useState<string>('');
   const toggleDropdown = () => setIsDropdownOpen(prev => !prev);
-  const [compressedFile, setCompressedFile] = useState<File | null>();
+  // const [scheduleName, setScheduleName] = useState<string | undefined>(
+  //   searchLocation
+  // );
   const [scheduleLocation, setScheduleLocation] =
     useState<ScheduleLocation | null>(null);
   const [getSchedule, setGetSchedule] = useState<DaySchedule | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const [scheduleId, setScheduleId] = useState<number | null>(null);
   const queryClient = useQueryClient();
 
   const handleAddImg = () => {
@@ -63,30 +61,11 @@ export default function PlusSelf() {
     document.getElementById('imageInput')?.click();
   };
 
-  const handleImageChange = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      // const imageUrl = URL.createObjectURL(file); // 이미지 URL 생성
-      // setSelectedImage(imageUrl); // 이미지 상태 업데이트
-      try {
-        // 압축 옵션 설정
-        const options = {
-          maxSizeMB: 1, // 최대 파일 크기 (MB 단위)
-          maxWidthOrHeight: 1920, // 최대 너비 또는 높이 (px 단위)
-          useWebWorker: true, // Web Worker 사용
-        };
-
-        // 이미지 압축
-        const compressedFile = await imageCompression(file, options);
-        const compressedImageUrl = URL.createObjectURL(compressedFile);
-
-        setSelectedImage(compressedImageUrl); // 압축된 이미지 상태 업데이트
-        setCompressedFile(compressedFile); // 압축된 파일 저장
-      } catch (error) {
-        console.error('Error compressing image:', error);
-      }
+      const imageUrl = URL.createObjectURL(file); // 이미지 URL 생성
+      setSelectedImage(imageUrl); // 이미지 상태 업데이트
     }
   };
   const handlePlaceSelection = (place: string) => {
@@ -108,45 +87,18 @@ export default function PlusSelf() {
    * 일정 추가 mutation 선언
    */
   const {mutate: postTravelSchedule} = useMutation({
-    mutationFn: async ({
+    mutationFn: ({
       travelId,
       scheduleData,
     }: {
       travelId: Id;
       scheduleData: FormData;
-    }) => {
-      return await moyeobang.postTravelSchedule(travelId, scheduleData);
-    },
-    onSuccess: async response => {
+    }) => moyeobang.postTravelSchedule(travelId, scheduleData),
+    onSuccess: async () => {
       await queryClient.invalidateQueries({
         queryKey: ['travelSchedules', travelId],
         refetchType: 'all',
       });
-
-      const responseScheduleId = response.data.data.scheduleId;
-      console.log('[*shedule]', response.data);
-      console.log('[*sheduleId]', responseScheduleId);
-      try {
-        const budgetData = await queryClient.fetchQuery({
-          queryKey: ['budget', responseScheduleId],
-          queryFn: async () => {
-            const result = await moyeobang.getBudget(responseScheduleId);
-            return result.data; // 데이터를 반환
-          },
-        });
-
-        if (budgetData) {
-          console.log('Budget Data:', budgetData);
-          setTimeout(async () => {
-            await queryClient.invalidateQueries({
-              queryKey: ['travelSchedules', travelId],
-              refetchType: 'all',
-            });
-          }, 2000);
-        }
-      } catch (error) {
-        console.error('Error fetching budget data:', error);
-      }
       resetForm();
       handleShowPlusSelf();
     },
@@ -244,14 +196,15 @@ export default function PlusSelf() {
       memo: memo || '',
     };
 
-    if (compressedFile) {
-      scheduleData.append('image', compressedFile);
-    } else {
-      scheduleData.append(
-        'data',
-        new Blob([JSON.stringify(jsonData)], {type: 'application/json'})
-      );
-    }
+    scheduleData.append(
+      'data',
+      new Blob([JSON.stringify(jsonData)], {type: 'application/json'})
+    );
+
+    // 파일이 있을 때만 append
+    // if (fileInputRef.current?.files?.[0]) {
+    //   scheduleData.append('image', fileInputRef.current.files[0]);
+    // }
 
     // 파일이 있을 때만 append
     if (selectedImage) {
@@ -352,12 +305,6 @@ export default function PlusSelf() {
     }
   }, [scheduleEdit]);
 
-  const handleEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      handleShowMapSearch();
-    }
-  };
-
   return (
     <>
       <div>
@@ -399,6 +346,14 @@ export default function PlusSelf() {
                 )}
               </div>
               <div css={PlusSelfStyle.inputImgWrapper}>
+                {selectedImage && (
+                  <button
+                    id="imgCancelBtn"
+                    onClick={() => setSelectedImage(null)}
+                  >
+                    이미지 취소
+                  </button>
+                )}
                 <input
                   type="text"
                   name=""
@@ -407,7 +362,6 @@ export default function PlusSelf() {
                   css={PlusSelfStyle.LocationInputStyle}
                   placeholder="여행 장소 검색"
                   onChange={e => handleSearchLocation(e)}
-                  onKeyDown={handleEnter}
                 />
                 <img
                   src={searchImg}
@@ -494,14 +448,6 @@ export default function PlusSelf() {
           <div css={PlusSelfStyle.imgLayout}>
             <div css={PlusSelfStyle.imgLabelStyle}>사진</div>
             <div>
-              {selectedImage && (
-                <button
-                  id="imgCancelBtn"
-                  onClick={() => setSelectedImage(null)}
-                >
-                  X
-                </button>
-              )}
               <img
                 src={selectedImage ? selectedImage : addTravelPhoto}
                 alt="이미지 추가"
