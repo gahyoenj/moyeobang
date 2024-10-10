@@ -169,7 +169,7 @@ export default function TravelSummaryModal({
   });
 
 
-  console.log(TravelSchedulesData?.data.data.schedules);
+  // console.log(TravelSchedulesData?.data.data.schedules);
   const locationList =
     TravelSchedulesData?.data.data.schedules
       .flatMap(schedule => schedule.daySchedules) // daySchedules 배열을 평탄화
@@ -211,7 +211,7 @@ export default function TravelSummaryModal({
     trackMouse: true, // 마우스도 지원
   });
   useEffect(() => {
-    console.log('여행이름', travelName);
+    // console.log('여행이름', travelName);
   });
 
   return (

@@ -66,7 +66,7 @@ export default function PaidAutoSchedule({
   dragHandleProps: any;
 }) {
   const getTimeFromSchedule = (scheduleTime: string) => {
-    console.log('[*] scheduleTime', scheduleTime);
+    // console.log('[*] scheduleTime', scheduleTime);
 
     return scheduleTime.split('T')[1].slice(0, 5); // "T" 이후의 시간 부분에서 앞 5글자만 추출 ("HH:MM")
   };

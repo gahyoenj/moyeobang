@@ -122,7 +122,7 @@ export default function CertificationOne({
       authCode: string;
     }) => await moyeobang.postDepositAccountOneConfirm(accountNumber, authCode),
     onSuccess: () => {
-      console.log('인증성공');
+      // console.log('인증성공');
       alert('인증에 성공하였습니다.');
     },
     onError: () => {
@@ -133,7 +133,7 @@ export default function CertificationOne({
   const handleCertification = () => {
     // //[todo] 1원 입금 확인 api 연결
     postDepositAccountOneConfirm({accountNumber, authCode: verifyNumber});
-    console.log('verifyNumber', verifyNumber);
+    // console.log('verifyNumber', verifyNumber);
 
     if (verifyNumber === notificationKey) {
       // if (verifyNumber === randomVerifyNumber) {
@@ -158,16 +158,16 @@ export default function CertificationOne({
         accountNumber,
         bankName
       );
-      console.log('[*처음response]', response);
+      // console.log('[*처음response]', response);
       return response.data.data;
     },
     onSuccess: async response => {
-      console.log('[*response]', response);
-      console.log('[*]1원입금 성공');
+      // console.log('[*response]', response);
+      // console.log('[*]1원입금 성공');
       const transactionId = response;
-      console.log('[*]transactionId', transactionId);
+      // console.log('[*]transactionId', transactionId);
       if (transactionId) {
-        console.log(111111);
+        // console.log(111111);
         const notificationResponse = await moyeobang.postVerifyNotification(
           memberId,
           Number(transactionId)
@@ -178,7 +178,7 @@ export default function CertificationOne({
   });
 
   useEffect(() => {
-    console.log('[*notificationkey]', notificationKey);
+    // console.log('[*notificationkey]', notificationKey);
   }, [notificationKey]);
 
   return (

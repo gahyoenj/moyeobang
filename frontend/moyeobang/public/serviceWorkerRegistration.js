@@ -23,10 +23,10 @@ async function registerServiceWorker() {
         '/firebase-messaging-sw.js', // 이 경로에 서비스 워커 파일을 둡니다
         {scope: '/firebase-cloud-messaging-push-scope'}
       );
-      console.log(
-        'Firebase Service Worker 등록 성공:',
-        firebaseRegistration.scope
-      );
+      // console.log(
+      //   'Firebase Service Worker 등록 성공:',
+      //   firebaseRegistration.scope
+      // );
       // FCM 토큰 관련 코드 주석 처리
       /*
       if (!sessionStorage.getItem('fcmToken')) {

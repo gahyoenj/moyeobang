@@ -62,7 +62,7 @@ export default function ResultByPos({
     const {mutate: postPayment } = useMutation({
     mutationFn: ({data} : {data: PaymentProps}) => moyeobang.postPayByPos(data),
     onSuccess: async () => {
-        console.log('결제 성공!')
+        // console.log('결제 성공!')
         setIsSuccess(true);
         onClickOutside();
     },
@@ -70,17 +70,17 @@ export default function ResultByPos({
 
         if (error.response?.data) {
         const errorMessage = (error.response.data as { error: string }).error;
-        console.log(errorMessage); // 'Payment failed.'
+        // console.log(errorMessage); // 'Payment failed.'
         if (errorMessage==='Payment failed.') {
             setIsSuccess(false)
         }
         }
-        console.log('결제 실패')
+        // console.log('결제 실패')
     }
   });
     
     function handleSettle() {
-        console.log('결제 요청 중')
+        // console.log('결제 요청 중')
         // api결제 요청
         const payData : PaymentProps = {
             paymentRequestId : paymentRequestId,

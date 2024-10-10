@@ -155,7 +155,7 @@ export default function PlusSelfSchedule({
         scheduleId: schedule.scheduleId,
         budget: budget,
       });
-      console.log('전송할 예산:', budget);
+      // console.log('전송할 예산:', budget);
     }
   };
 
@@ -187,11 +187,11 @@ export default function PlusSelfSchedule({
           queryKey: ['travelSchedules'],
           queryFn: () => moyeobang.getTravelSchedules(travelId),
         });
-        console.log('[*] 변경 completed 데이터', data.data.data.schedules);
+        // console.log('[*] 변경 completed 데이터', data.data.data.schedules);
         // 최신 데이터로 Context 업데이트
         setTravelSchedules(data.data.data.schedules);
       } catch (error) {
-        console.error('Error fetching travel schedules:', error);
+        // console.error('Error fetching travel schedules:', error);
       }
     },
   });

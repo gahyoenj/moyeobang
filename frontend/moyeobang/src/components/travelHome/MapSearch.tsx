@@ -99,7 +99,7 @@ const fetchCityData = async (cityName: string): Promise<CityResult[]> => {
       }
     );
 
-    console.log('지도 검색 결과:', response); // 응답 결과 로그
+    // console.log('지도 검색 결과:', response); // 응답 결과 로그
     return response.data.results;
   } catch (error) {
     console.error(error); // 에러 메시지 로그
@@ -172,7 +172,7 @@ const loadingSpinnerStyle = css`
 
 export default function MapSearch({cityName, onSelectCity}: MapSearchProps) {
   useEffect(() => {
-    console.log('*cityName 값:', cityName);
+    // console.log('*cityName 값:', cityName);
   }, [cityName]);
 
   // 도시 검색 쿼리
