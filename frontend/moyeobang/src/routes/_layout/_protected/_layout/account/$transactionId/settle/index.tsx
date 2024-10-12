@@ -36,7 +36,7 @@ export default function Settle() {
   // method==='receipt' 이고 'true'이면
   // console.log('isUpdate', isUpdate)
   const {accountId} = useTravelDetailStore();
-  const { travelId}= useTravelDetailStore();
+  const {travelId}= useTravelDetailStore();
   const {participantsInfo} = useTravelDetailStore();
   const queryClient = useQueryClient();
   
@@ -93,8 +93,11 @@ export default function Settle() {
   }
   
   function handleXClick() {
-    const sendData = createDefaultSettleData();
-    settleByDefault({transactionId:transactionId, travelId:travelId, data:sendData});
+    // isUpdate가 undefined 일때만!
+    if (!isUpdate) {
+      const sendData = createDefaultSettleData();
+      settleByDefault({transactionId:transactionId, travelId:travelId, data:sendData});
+    }
     history.back()
   }
 
