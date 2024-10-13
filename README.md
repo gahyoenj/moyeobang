@@ -142,8 +142,8 @@
 ### 호텔, 항공, POS 데모
 
 <p align="center">
-  <img src="img/posHotelAirportPage/airport.PNG" alt="airport" width="30%">
-  <img src="img/posHotelAirportPage/hotel.PNG" alt="hotel" width="30%">
+  <img src="img/posHotelAirportPage/airport.png" alt="airport" width="30%">
+  <img src="img/posHotelAirportPage/hotel.png" alt="hotel" width="30%">
 </p>
 <p align="center">
   <img src="img/posHotelAirportPage/pos.PNG" alt="pos" width="30%">
