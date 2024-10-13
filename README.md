@@ -2,7 +2,7 @@
 
 
 <p align="center">
-  <img src="./img/splashPage.png" alt="splashPage.png">
+  <img src="/img/splashPage.PNG" alt="splashPage.png">
 </p>
 
 <br>
@@ -215,15 +215,14 @@
 
 ### 아키텍쳐
 
----
-
 <img src="img/architecture.jpeg" alt="image">
 
 <br>
 <br>
 
-### ERD (추가 예정)
+### ERD
 
----
+<img src="img/erdDiagram.png" alt="image">
+
 
 
